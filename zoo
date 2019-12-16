@@ -1,0 +1,163 @@
+# Maya Deshpande
+# ITP 115, 2019 Fall
+# Assignment 10
+# mayadesh@usc.edu
+
+class Animal(object):
+
+    hunger = 0
+    happiness = 0
+    health = 0
+    energy = 0
+    age = 0
+    name = ""
+    species = ""
+
+    def __init__(self, hunger, happiness, health, energy, age, name, species):
+        self.hunger = int(hunger)
+        self.happiness = int(happiness)
+        self.health = int(health)
+        self.energy = int(energy)
+        self.age = int(age)
+        self.name = str(name)
+        self.species = str(species)
+
+    def play(self):
+        if self.happiness in range(0,101):
+            self.happiness += 5
+            if self.happiness < 0:
+                self.happiness = 0
+            if self.happiness > 100:
+                self.happiness = 100
+
+        if self.hunger in range(0,101):
+            self.hunger += 5
+            if self.hunger < 0:
+                self.hunger = 0
+            if self.hunger > 100:
+                self.hunger = 100
+
+    def feed(self):
+        if self.hunger in range(0,101):
+            self.hunger -= 10
+            if self.hunger < 0:
+                self.hunger = 0
+            if self.hunger > 100:
+                self.hunger = 100
+
+    def giveMedicine(self):
+        if self.health in range(0,101):
+            self.health += 20
+            if self.health < 0:
+                self.health = 0
+            if self.health > 100:
+                self.health = 100
+
+        if self.happiness in range(0,101):
+            self.happiness -= 20
+            if self.happiness < 0:
+                self.happiness = 0
+            if self.happiness > 100:
+                self.happiness = 100
+
+    def sleep(self):
+        if self.energy in range(0,101):
+            self.energy += 20
+            if self.energy < 0:
+                self.energy = 0
+            if self.energy > 100:
+                self.energy = 100
+
+        if self.age in range(0,101):
+            self.age += 1
+            if self.age < 0:
+                self.age = 0
+
+    def __str__(self):
+        return ("Name: " + self.name + "\nSpecies: " + self.species + "\nHealth: " + str(self.health) + "\nHappiness: " + str(self.happiness) + "\nHunger: " +
+                str(self.hunger) + "\nEnergy: " + str(self.energy) + "\nAge: " + str(self.age))
+
+def loadAnimals(fileName):
+
+    listOfAnimals = []
+    file = open(fileName, "r")
+    for line in file:
+        line = line.strip("\n")
+        line = line.split(",")
+
+        animal = Animal(int(line[0]), int(line[1]), int(line[2]), int(line[3]), int(line[4]), (line[5]), (line[6]))
+        listOfAnimals.append(animal)
+
+    return listOfAnimals
+
+def displayMenu():
+
+    print("1) Play \n2) Feed \n3) Give Medicine \n4) Sleep \n5) Print Animal's Stats \n6) View All Animals \n7) Exit")
+
+def selectAnimal(listOfAnimals):
+
+    print("1) Ollie the Bunny \n2) Murdock the French Bulldog \n3) Socks the Cat \n4) Peewee the Turtle \n5) Milo the Labrador")
+
+    animalSelection = int(input("Please select the animal from the list (enter 1-5): "))
+
+    while animalSelection not in range(1,6):
+        animalSelection = int(input("Invalid selection, please try again. "))
+
+    return listOfAnimals[animalSelection-1]
+
+def main():
+
+    cont = True
+    animals = loadAnimals("animals.csv")
+
+    print("Welcome to the Animal Daycare! Here is what we can do: ")
+
+    while cont == True:
+        displayMenu()
+        menuSelect = int(input("Please make a selection: "))
+
+        while menuSelect < 1 or menuSelect > 7:
+            menuSelect = int(input("Invalid selection, please try again: "))
+
+        if menuSelect == 1:
+            animalChoice = selectAnimal(animals)
+            animalChoice.play()
+            print()
+            print("You played with " + str(animalChoice.name) + " the " + str(animalChoice.species) + "!")
+
+        elif menuSelect == 2:
+            animalChoice = selectAnimal(animals)
+            animalChoice.feed()
+            print()
+            print("You fed " + str(animalChoice.name) + " the " + str(animalChoice.species) + "!")
+
+        elif menuSelect == 3:
+            animalChoice = selectAnimal(animals)
+            animalChoice.giveMedicine()
+            print()
+            print("You gave " + animalChoice.name + " the " + animalChoice.species + " some medicine! " )
+
+        elif menuSelect == 4:
+            animalChoice = selectAnimal(animals)
+            animalChoice.sleep()
+            print()
+            print(animalChoice.name + " the " + animalChoice.species + " took a nap! ")
+
+        elif menuSelect == 5: # something wrong here
+            animalChoice = selectAnimal(animals)
+            print(animalChoice)
+            print()
+
+        elif menuSelect == 6:
+            for animal in animals:
+                print(Animal.__str__(animal))
+                print()
+
+        elif menuSelect == 7:
+            print()
+            print("Goodbye! ")
+            cont = False
+
+
+main()
+
