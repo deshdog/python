@@ -1,0 +1,78 @@
+# Maya Deshpande
+# ITP 115, 2019 Fall
+# Assignment 6
+# mayadesh@usc.edu
+# This program manages the seats on an airplane.
+
+seatList = ["Empty","Empty","Empty","Empty","Empty","Empty","Empty","Empty","Empty","Empty"]
+totalSeats = 10
+numFilledSeats = 0
+menuOption1 = int
+
+menuOption1 = int(input(("1: Assign Seat \n2: Print Seat Map: \n3: Print Boarding Pass \n-1: Quit\n")))
+
+
+while menuOption1 != -1:
+
+    if menuOption1 == 1:
+
+        if numFilledSeats < totalSeats:
+            passengerName = input(str("Please enter your name: "))
+            seatList[numFilledSeats] = passengerName
+            numFilledSeats += 1;
+        elif numFilledSeats == totalSeats:
+            print("Next flight leaves in 3 hours. ")
+
+    elif menuOption1 == 2:
+        print()
+        print("*************************")
+        print("Seat #1: " + seatList[0])
+        print("Seat #2: " + seatList[1])
+        print("Seat #3: " + seatList[2])
+        print("Seat #4: " + seatList[3])
+        print("Seat #5: " + seatList[4])
+        print("Seat #6: " + seatList[5])
+        print("Seat #7: " + seatList[6])
+        print("Seat #8: " + seatList[7])
+        print("Seat #9: " + seatList[8])
+        print("Seat #10: " + seatList[9])
+        print("*************************")
+        print()
+
+    elif menuOption1 == 3:
+        menuOption2 = int(input("1: Get boarding pass by seat number \n2: Get boarding pass by name\n"))
+
+        if menuOption2 == 1:
+            seatNumber = int(input("Please enter your seat number: "))
+
+            if seatNumber <= totalSeats:
+
+                passengerName = seatList[seatNumber-1]
+                print()
+                print("========== Boarding Pass ===========")
+                print("Passenger Name: " + passengerName)
+                print("Seat Number: " + str(seatNumber))
+                print("====================================")
+                print()
+
+            else:
+                print("Invalid number, no boarding pass found. ")
+                print()
+
+        elif menuOption2 == 2:
+            passengerName = input(str("Please enter your name: "))
+
+            if passengerName in seatList:
+                seatNumber = seatList.index(passengerName)+1
+                print()
+                print("========== Boarding Pass ===========")
+                print("Passenger Name: " + passengerName)
+                print("Seat Number: " + str(seatNumber))
+                print("====================================")
+                print()
+
+            else:
+                print("There is no reservation under the name " + passengerName + ".")
+                print()
+
+    menuOption1 = int(input(("1: Assign Seat \n2: Print Seat Map: \n3: Print Boarding Pass \n-1: Quit\n")))
